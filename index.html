@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barnes-Moore Family Reunion 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        reunion: '#8ca07a',
+                    },
+                    fontFamily: {
+                        serif: ['ui-serif', 'Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .tab-button.active {
+            background-color: #8ca07a;
+            color: white;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        [data-lucide] {
+            width: 18px;
+            height: 18px;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-[#f8f9f5] text-gray-800 font-sans">
+
+    <div class="relative h-[65vh] bg-reunion flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path d="M0 100 C 20 0 50 0 100 100 Z" fill="white" />
+            </svg>
+        </div>
+        
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+            <div class="inline-block px-4 py-1 mb-6 border border-white/40 rounded-full text-white/90 tracking-widest text-sm uppercase font-semibold">
+                EST. 2026 • AUGUST 8th
+            </div>
+            <h1 class="text-5xl md:text-8xl font-serif font-bold text-white mb-4 drop-shadow-md">
+                Barnes-Moore
+            </h1>
+            <p class="text-xl md:text-2xl italic text-white/95 mb-8 font-light tracking-wide">
+                "Unbroken Roots, Sustained By Faith"
+            </p>
+            
+            <div id="countdown" class="flex justify-center gap-3 md:gap-6">
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 w-20 md:w-28 border border-white/20 shadow-xl text-white">
+                    <div id="days" class="text-2xl md:text-4xl font-bold leading-none">0</div>
+                    <div class="text-[10px] md:text-xs uppercase tracking-widest opacity-70 mt-2 font-bold">days</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 w-20 md:w-28 border border-white/20 shadow-xl text-white">
+                    <div id="hours" class="text-2xl md:text-4xl font-bold leading-none">0</div>
+                    <div class="text-[10px] md:text-xs uppercase tracking-widest opacity-70 mt-2 font-bold">hours</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 w-20 md:w-28 border border-white/20 shadow-xl text-white">
+                    <div id="minutes" class="text-2xl md:text-4xl font-bold leading-none">0</div>
+                    <div class="text-[10px] md:text-xs uppercase tracking-widest opacity-70 mt-2 font-bold">min</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 w-20 md:w-28 border border-white/20 shadow-xl text-white">
+                    <div id="seconds" class="text-2xl md:text-4xl font-bold leading-none">0</div>
+                    <div class="text-[10px] md:text-xs uppercase tracking-widest opacity-70 mt-2 font-bold">sec</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm overflow-x-auto">
+        <div class="max-w-6xl mx-auto px-4 py-3">
+            <div class="flex justify-start md:justify-center gap-4 min-w-max">
+                <button onclick="switchTab('event')" class="tab-button active flex items-center gap-2 px-6 py-3 rounded-full transition-all bg-white text-gray-600 hover:bg-gray-50">
+                    <i data-lucide="calendar"></i>
+                    <span class="font-medium">The Event</span>
+                </button>
+                <button onclick="switchTab('travel')" class="tab-button flex items-center gap-2 px-6 py-3 rounded-full transition-all bg-white text-gray-600 hover:bg-gray-50">
+                    <i data-lucide="plane"></i>
+                    <span class="font-medium">Travel & Lodging</span>
+                </button>
+                <button onclick="switchTab('explore')" class="tab-button flex items-center gap-2 px-6 py-3 rounded-full transition-all bg-white text-gray-600 hover:bg-gray-50">
+                    <i data-lucide="map"></i>
+                    <span class="font-medium">Explore ATL</span>
+                </button>
+                <button onclick="switchTab('rsvp')" class="tab-button flex items-center gap-2 px-6 py-3 rounded-full transition-all bg-white text-gray-600 hover:bg-gray-50">
+                    <i data-lucide="check-circle"></i>
+                    <span class="font-medium">RSVP & Pay</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <main class="max-w-6xl mx-auto px-4 py-12">
+        <div id="event" class="tab-content active space-y-8 animate-in fade-in duration-500">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2 space-y-8">
+                    <section class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="p-2 bg-reunion/10 rounded-lg text-reunion">
+                                <i data-lucide="heart" class="fill-current"></i>
+                            </div>
+                            <h2 class="text-3xl font-serif font-bold text-gray-900">A Brand New Chapter</h2>
+                        </div>
+                        <p class="text-lg text-gray-600 leading-relaxed mb-6">
+                            For years, Wilson, North Carolina, has been the backdrop of our family stories—but for 2026, we are turning the page. 
+                            Pack your bags and get your playlist ready, because the Barnes-Moore Family Reunion is officially heading to <strong>Atlanta, Georgia!</strong>
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="flex gap-4 p-5 rounded-2xl bg-[#f8f9f5] border border-gray-100">
+                                <div class="bg-reunion text-white p-3 rounded-xl h-fit">
+                                    <i data-lucide="users" class="w-6 h-6"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-900">Ultimate Playground</h4>
+                                    <p class="text-sm text-gray-500 leading-snug">Escape rooms, boutique bowling, and a massive arcade at Game Changer.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4 p-5 rounded-2xl bg-[#f8f9f5] border border-gray-100">
+                                <div class="bg-reunion text-white p-3 rounded-xl h-fit">
+                                    <i data-lucide="camera" class="w-6 h-6"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-900">Lake Lanier Luxury</h4>
+                                    <p class="text-sm text-gray-500 leading-snug">Stunning lakeside views and the fresh Georgia breeze for a perfect escape.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex flex-col items-center text-center group hover:border-reunion transition-all">
+                            <div class="w-14 h-14 bg-green-50 text-reunion rounded-2xl flex items-center justify-center mb-4 transform group-hover:scale-110 transition-transform">
+                                <i data-lucide="map-pin" class="w-7 h-7"></i>
+                            </div>
+                            <h3 class="font-bold text-xl mb-1 text-gray-900">Where</h3>
+                            <p class="text-gray-700 font-medium leading-tight">Game Changer at Lake Lanier Islands</p>
+                            <p class="text-sm text-gray-400 mt-1">Just north of Atlanta, GA</p>
+                        </div>
+                        <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex flex-col items-center text-center group hover:border-reunion transition-all">
+                            <div class="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-4 transform group-hover:scale-110 transition-transform">
+                                <i data-lucide="clock" class="w-7 h-7"></i>
+                            </div>
+                            <h3 class="font-bold text-xl mb-1 text-gray-900">When</h3>
+                            <p class="text-gray-700 font-medium">Saturday, August 8, 2026</p>
+                            <p class="text-sm text-gray-400 mt-1">1:00pm ET - 5:00pm ET</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="bg-reunion text-white p-8 rounded-3xl shadow-xl">
+                        <h3 class="text-2xl font-bold mb-6 flex items-center gap-2">
+                            <i data-lucide="info" class="w-6 h-6"></i>
+                            Registration
+                        </h3>
+                        <div class="space-y-4 mb-8">
+                            <div class="flex justify-between items-center border-b border-white/20 pb-4">
+                                <span class="font-medium">Adults</span>
+                                <span class="text-2xl font-bold">$100</span>
+                            </div>
+                            <div class="flex justify-between items-center border-b border-white/20 pb-4">
+                                <span class="font-medium">Children (3-10)</span>
+                                <span class="text-2xl font-bold">$50</span>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center gap-3 text-sm italic">
+                                <i data-lucide="check-circle" class="opacity-80"></i> Food & Drinks Included
+                            </li>
+                            <li class="flex items-center gap-3 text-sm italic">
+                                <i data-lucide="check-circle" class="opacity-80"></i> Full Game Access
+                            </li>
+                            <li class="flex items-center gap-3 text-sm italic">
+                                <i data-lucide="check-circle" class="opacity-80"></i> Official Reunion T-Shirt
+                            </li>
+                        </ul>
+                        <button onclick="switchTab('rsvp')" class="w-full bg-white text-reunion py-4 rounded-2xl font-bold shadow-lg hover:shadow-2xl transition-all flex items-center justify-center gap-2 transform hover:-translate-y-1">
+                            SAVE YOUR SPOT <i data-lucide="chevron-right"></i>
+                        </button>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+                        <h4 class="font-bold text-gray-900 mb-6 flex items-center gap-2">
+                            <i data-lucide="users" class="text-reunion"></i>
+                            2026 Committee
+                        </h4>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-2">Officers</div>
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex justify-between"><span>President</span><span class="font-semibold">Daniel Moore</span></div>
+                                    <div class="flex justify-between"><span>Vice-President</span><span class="font-semibold">Taryn Woldagabriel</span></div>
+                                    <div class="flex justify-between"><span>Treasurer</span><span class="font-semibold">Kenneth Barnes</span></div>
+                                    <div class="flex justify-between"><span>Secretary</span><span class="font-semibold">Courtney Rubino</span></div>
+                                </div>
+                            </div>
+                            <div class="pt-4 border-t border-gray-50">
+                                <div class="text-[10px] uppercase tracking-widest text-reunion font-bold mb-3">State Representatives</div>
+                                <div class="space-y-3 text-xs">
+                                    <div><span class="text-gray-400 font-bold">NJ / PA:</span> <span class="text-gray-700">Kenneth Barnes, Stacie Newton</span></div>
+                                    <div><span class="text-gray-400 font-bold">MD:</span> <span class="text-gray-700">Luther Moore</span></div>
+                                    <div><span class="text-gray-400 font-bold">VA:</span> <span class="text-gray-700">Johnson Family</span></div>
+                                    <div><span class="text-gray-400 font-bold">NC:</span> <span class="text-gray-700">Ginyel Farmer</span></div>
+                                    <div><span class="text-gray-400 font-bold">GA / SC / FL:</span> <span class="text-gray-700">Courtney Rubino, Taryn Woldagabriel</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="travel" class="tab-content space-y-12 animate-in slide-in-from-bottom-4 duration-500">
+            <section>
+                <h2 class="text-3xl font-serif font-bold text-gray-900 mb-8 flex items-center gap-3">
+                    <i data-lucide="hotel" class="text-reunion"></i> Recommended Hotels
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+                        <div class="text-xs font-bold text-reunion uppercase mb-2">4.9 miles</div>
+                        <h4 class="font-bold text-lg mb-2">Holiday Inn Express</h4>
+                        <p class="text-sm text-gray-500">Closest off-site hotel to the venue.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+                        <div class="text-xs font-bold text-reunion uppercase mb-2">6.6 miles</div>
+                        <h4 class="font-bold text-lg mb-2">Hampton Inn & Suites</h4>
+                        <p class="text-sm text-gray-500">New property with modern suites in Flowery Branch.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+                        <div class="text-xs font-bold text-reunion uppercase mb-2">8.1 miles</div>
+                        <h4 class="font-bold text-lg mb-2">SpringHill Suites</h4>
+                        <p class="text-sm text-gray-500">All-suite rooms near Mall of Georgia.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+                        <div class="text-xs font-bold text-reunion uppercase mb-2">8.3 miles</div>
+                        <h4 class="font-bold text-lg mb-2">Courtyard Marriott</h4>
+                        <p class="text-sm text-gray-500">On-site bistro and small meeting rooms.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bg-[#eff2ea] p-8 md:p-12 rounded-[3rem] border border-reunion/10">
+                <h2 class="text-3xl font-serif font-bold text-gray-900 mb-8 flex items-center gap-3">
+                    <i data-lucide="home" class="text-reunion"></i> Airbnb Choice Areas
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-7 rounded-2xl shadow-sm">
+                        <div class="flex justify-between mb-2">
+                            <h4 class="font-bold text-xl">Flowery Branch</h4>
+                            <span class="text-xs font-bold bg-reunion text-white px-3 py-1 rounded-full uppercase">10-15 min</span>
+                        </div>
+                        <div class="text-sm font-semibold text-reunion italic mb-4">Quiet & Charming</div>
+                        <p class="text-gray-600 text-sm">Look near Old Town for cottages walking distance to coffee shops and the lake.</p>
+                    </div>
+                    <div class="bg-white p-7 rounded-2xl shadow-sm">
+                        <div class="flex justify-between mb-2">
+                            <h4 class="font-bold text-xl">Sugar Hill</h4>
+                            <span class="text-xs font-bold bg-reunion text-white px-3 py-1 rounded-full uppercase">15-20 min</span>
+                        </div>
+                        <div class="text-sm font-semibold text-reunion italic mb-4">Modern Suburban</div>
+                        <p class="text-gray-600 text-sm">Ranked one of the safest cities. Look near Downtown E-Center or The Bowl.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="explore" class="tab-content animate-in fade-in duration-500">
+            <h2 class="text-3xl font-serif font-bold text-gray-900 mb-4">Metro Atlanta Attractions</h2>
+            <p class="text-gray-600 mb-10 max-w-2xl">Historical tours to high-energy adventures—Atlanta is well-suited for family groups.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="attractions-grid">
+                </div>
+        </div>
+
+        <div id="rsvp" class="tab-content max-w-3xl mx-auto animate-in slide-in-from-bottom-8 duration-500">
+            <div class="bg-white p-8 md:p-14 rounded-[4rem] shadow-2xl border border-gray-100 relative overflow-hidden">
+                <div class="absolute top-0 left-0 right-0 h-3 bg-gradient-to-r from-reunion via-white to-blue-400 opacity-50"></div>
+                <h2 class="text-4xl font-serif font-bold text-gray-900 mb-3">RSVP & Save Your Spot</h2>
+                <p class="text-gray-500 mb-12 text-lg">Help us make 2026 the year of our biggest turnout yet!</p>
+                <div class="space-y-12">
+                    <div class="flex gap-8 items-start">
+                        <div class="w-14 h-14 rounded-3xl bg-reunion text-white flex items-center justify-center shrink-0 font-bold text-2xl shadow-lg">1</div>
+                        <div class="pt-2">
+                            <h4 class="font-bold text-xl mb-2">Register Online</h4>
+                            <p class="text-gray-500 mb-6 italic text-sm">Complete the registration form by May 10, 2026.</p>
+                            <button class="bg-reunion text-white px-8 py-3 rounded-2xl font-bold flex items-center gap-2 hover:gap-4 transition-all">
+                                Registration Link <i data-lucide="arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex gap-8 items-start">
+                        <div class="w-14 h-14 rounded-3xl bg-blue-600 text-white flex items-center justify-center shrink-0 font-bold text-2xl shadow-lg">2</div>
+                        <div class="w-full pt-2">
+                            <h4 class="font-bold text-xl mb-2">Submit Payment</h4>
+                            <p class="text-gray-500 mb-8 text-sm">Payment due by June 7, 2026. Please include name in memo.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="p-4 bg-gray-50 rounded-2xl text-center border group relative">
+                                    <div class="font-bold text-blue-600 italic">Zelle</div>
+                                    <div class="text-xs text-gray-500 mt-1">Kenneth Barnes</div>
+                                    <div class="text-sm font-bold flex items-center justify-center gap-1">
+                                        7328878152
+                                        <button onclick="copyToClipboard('7328878152', this)" class="text-gray-400 hover:text-reunion transition-colors">
+                                            <i data-lucide="copy" class="w-3 h-3"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="p-4 bg-gray-50 rounded-2xl text-center border group relative">
+                                    <div class="font-bold">Apple Pay</div>
+                                    <div class="text-xs text-gray-500 mt-1">Taryn W.</div>
+                                    <div class="text-sm font-bold flex items-center justify-center gap-1">
+                                        9089221532
+                                        <button onclick="copyToClipboard('9089221532', this)" class="text-gray-400 hover:text-reunion transition-colors">
+                                            <i data-lucide="copy" class="w-3 h-3"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="p-4 bg-gray-50 rounded-2xl text-center border group relative">
+                                    <div class="font-bold text-blue-400">Venmo</div>
+                                    <div class="text-xs text-gray-500 mt-1">@Taryn-Barnes-1</div>
+                                    <div class="text-sm font-bold flex items-center justify-center gap-1">
+                                        @Taryn-Barnes-1
+                                        <button onclick="copyToClipboard('@Taryn-Barnes-1', this)" class="text-gray-400 hover:text-reunion transition-colors">
+                                            <i data-lucide="copy" class="w-3 h-3"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-900 text-white py-20 mt-20">
+        <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-16">
+            <div class="space-y-6">
+                <h3 class="text-3xl font-serif font-bold">Barnes-Moore 2026</h3>
+                <p class="text-gray-400 italic">"From the red clay of Georgia to the shimmering waters of the lake."</p>
+            </div>
+            <div>
+                <h4 class="font-bold mb-8 uppercase tracking-widest text-sm text-reunion">Quick Navigation</h4>
+                <ul class="space-y-4 text-sm text-gray-400">
+                    <li><button onclick="switchTab('event')">Reunion Details</button></li>
+                    <li><button onclick="switchTab('travel')">Travel & Hotels</button></li>
+                    <li><button onclick="switchTab('explore')">Explore Atlanta</button></li>
+                    <li><button onclick="switchTab('rsvp')">Registration & Fees</button></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold mb-8 uppercase tracking-widest text-sm text-reunion">Contact</h4>
+                <div class="space-y-4 text-sm text-gray-400">
+                    <div>Kenneth: (732) 887-8152</div>
+                    <div>Daniel: (443) 336-3278</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        /**
+         * Enhanced Tab Switching
+         * Explicitly finds the nav button to highlight regardless of where the trigger button is.
+         */
+        function switchTab(tabId) {
+            // Remove active state from all contents and nav buttons
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('active'));
+            
+            // Show the target tab
+            const targetTab = document.getElementById(tabId);
+            if (targetTab) targetTab.classList.add('active');
+            
+            // Specifically highlight the navigation tab button
+            const navBtn = document.querySelector(`.tab-button[onclick*="'${tabId}'"]`);
+            if (navBtn) navBtn.classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /**
+         * Copy to Clipboard Helper
+         */
+        function copyToClipboard(text, btn) {
+            navigator.clipboard.writeText(text).then(() => {
+                const originalIcon = btn.innerHTML;
+                btn.innerHTML = '<i data-lucide="check" class="text-reunion w-3 h-3"></i>';
+                lucide.createIcons();
+                setTimeout(() => {
+                    btn.innerHTML = originalIcon;
+                    lucide.createIcons();
+                }, 2000);
+            });
+        }
+
+        // Countdown Timer Logic
+        function updateCountdown() {
+            const targetDate = new Date('August 8, 2026 13:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = d > 0 ? d : 0;
+            document.getElementById('hours').innerText = h > 0 ? h : 0;
+            document.getElementById('minutes').innerText = m > 0 ? m : 0;
+            document.getElementById('seconds').innerText = s > 0 ? s : 0;
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Enhanced Attractions with Placeholder Images
+        const attractions = [
+            { title: "Georgia Aquarium", desc: "One of the world's largest with spectacular viewing windows.", type: "CORE", img: "https://images.unsplash.com/photo-1599023414167-a89fd93bd0fd?auto=format&fit=crop&q=80&w=800" },
+            { title: "World of Coca-Cola", desc: "Sample over 100 soda flavors from across the globe.", type: "CORE", img: "https://images.unsplash.com/photo-1554866585-cd94860890b7?auto=format&fit=crop&q=80&w=800" },
+            { title: "Atlanta Botanical Garden", desc: "Scenic Midtown escape featuring a Canopy Walk.", type: "NATURE", img: "https://images.unsplash.com/photo-1589412225893-bb210095bbcd?auto=format&fit=crop&q=80&w=800" },
+            { title: "MLK Jr. Historical Park", desc: "Explore the birth home and Ebenezer Baptist Church.", type: "HISTORY", img: "https://images.unsplash.com/photo-1594101419736-23955682855f?auto=format&fit=crop&q=80&w=800" },
+            { title: "Fernbank Museum", desc: "Dinosaur skeletons, 3D theater, and a 65-acre forest.", type: "SCIENCE", img: "https://images.unsplash.com/photo-1569003339405-ea396a5a8a90?auto=format&fit=crop&q=80&w=800" },
+            { title: "Stone Mountain Park", desc: "3,200 acres featuring the Summit Skyride and Lasershow.", type: "ADVENTURE", img: "https://images.unsplash.com/photo-1618683526139-253818318116?auto=format&fit=crop&q=80&w=800" }
+        ];
+
+        const grid = document.getElementById('attractions-grid');
+        attractions.forEach(loc => {
+            const card = document.createElement('div');
+            card.className = "bg-white overflow-hidden rounded-3xl border border-gray-100 shadow-sm transition-all hover:shadow-xl hover:-translate-y-2";
+            card.innerHTML = `
+                <div class="h-48 bg-gray-100 relative overflow-hidden">
+                    <img src="${loc.img}" alt="${loc.title}" class="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-500">
+                    <div class="absolute top-4 left-4 bg-white/90 px-3 py-1 rounded-full text-[10px] font-bold tracking-widest shadow-sm">${loc.type}</div>
+                </div>
+                <div class="p-8">
+                    <h4 class="font-bold text-xl mb-3">${loc.title}</h4>
+                    <p class="text-sm text-gray-500 leading-relaxed">${loc.desc}</p>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+        lucide.createIcons();
+    </script>
+</body>
+</html>
